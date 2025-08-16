@@ -1,75 +1,33 @@
-# Nuxt Minimal Starter
+# Introduction
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This project consists of a NuxtJS project that exposes API endpoints to serve as a server sided API for the frontend.
 
-## Setup
+- [Introduction](#introduction)
+  - [Prerequisites](#prerequisites)
+  - [Getting started](#getting-started)
+    - [Restoring dependencies](#restoring-dependencies)
+    - [Development](#development)
 
-Make sure to install dependencies:
+## Prerequisites
 
-```bash
-# npm
-npm install
+Before you begin, ensure you have the following installed:
 
-# pnpm
-pnpm install
+1. **[Node.js](https://nodejs.org/en/download)** - Version 20 or higher
+2. **[npm](https://www.npmjs.com/)** - For managing frontend dependencies
+3. **[Git](https://git-scm.com/downloads)** - For version control
 
-# yarn
-yarn install
+For development, we also recommend:
 
-# bun
-bun install
-```
+- Visual Studio code
+- A modern web browser (Chrome, Firefox, Edge)
 
-## Development Server
+## Getting started
 
-Start the development server on `http://localhost:3000`:
+### Restoring dependencies
 
-```bash
-# npm
-npm run dev
+Run `npm i` to restore dependencies.
 
-# pnpm
-pnpm dev
+### Development
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Install all the dependencies by running `npm i`.
+Start development by running `npm run dev`
