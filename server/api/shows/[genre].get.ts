@@ -1,8 +1,9 @@
 import { TV_MAZE_API_URL } from "~~/server/constants";
+import { Show } from "~~/server/types/api.typings";
 import { TVMazeShow } from "~~/server/types/tvMaze.typings";
 import { isValidGenre } from "~~/server/utils/genres";
 
-export default defineEventHandler(async (event): Promise<any[]> => {
+export default defineEventHandler(async (event): Promise<Show[]> => {
   const genreName = getRouterParam(event, "genre") as string;
   const query = getQuery(event);
   const limit = parseInt(query.limit as string) || 20;
@@ -21,7 +22,7 @@ export default defineEventHandler(async (event): Promise<any[]> => {
     const storage = useStorage("memory");
     const cached = await storage.getItem(cacheKey);
     if (cached) {
-      return cached as any[];
+      return cached as Show[];
     }
 
     const shows = await $fetch<TVMazeShow[]>(`${TV_MAZE_API_URL}/shows?page=0`);
@@ -39,6 +40,12 @@ export default defineEventHandler(async (event): Promise<any[]> => {
         rating: show.rating?.average || 0,
         premiered: show.premiered,
         status: show.status,
+        genres: show.genres,
+        language: show.language,
+        runtime: show.runtime,
+        network: show.network,
+        schedule: show.schedule,
+        officialSite: show.officialSite,
       }));
 
     switch (sort) {

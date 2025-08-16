@@ -3,10 +3,15 @@
 This project consists of a NuxtJS project that exposes API endpoints to serve as a server sided API for the frontend.
 
 - [Introduction](#introduction)
+  - [Architecture](#architecture)
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
     - [Restoring dependencies](#restoring-dependencies)
     - [Development](#development)
+
+## Architecture
+
+// TODO
 
 ## Prerequisites
 
