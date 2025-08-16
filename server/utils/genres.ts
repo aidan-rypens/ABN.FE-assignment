@@ -35,14 +35,14 @@ export function getSortedGenresByPopularity(): TVGenreData[] {
   return [...TV_GENRES].sort((a, b) => b.popularity - a.popularity);
 }
 
-export function getGenreNames(): TVGenre[] {
+export function getGenreNames(): string[] {
   return TV_GENRES.map((genre) => genre.name);
 }
 
 export function getDashboardGenres(): TVGenreData[] {
-  return TV_GENRES.filter((genre) => genre.isFeatured).sort(
-    (a, b) => b.popularity - a.popularity
-  );
+  return TV_GENRES.filter((genre) => genre.isFeatured)
+    .sort((a, b) => b.popularity - a.popularity)
+    .slice(0, 10);
 }
 
 export function getPopularGenres(limit: number = 10): TVGenreData[] {
@@ -57,6 +57,6 @@ export function getGenreByName(name: string): TVGenreData | undefined {
   );
 }
 
-export function isValidGenre(name: string): name is TVGenre {
+export function isValidGenre(name: string): boolean {
   return TV_GENRES.some((genre) => genre.name === name);
 }
