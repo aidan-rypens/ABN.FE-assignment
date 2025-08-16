@@ -1,5 +1,8 @@
-import { getSortedGenres } from "~~/server/utils/genres";
+import {
+  getSortedGenresByPopularity,
+  TVGenreData,
+} from "~~/server/utils/genres";
 
-export default defineEventHandler(async (event): Promise<string[]> => {
-  return getSortedGenres();
+export default defineEventHandler(async (event): Promise<TVGenreData[]> => {
+  return getSortedGenresByPopularity();
 });
