@@ -9,11 +9,6 @@ const { data: genres } = await useFetch<TVGenreData[]>("/api/shows/genres");
   <ApiErrorBanner />
   <h1 class="text-4xl font-bold">Dashboard</h1>
   <div class="flex flex-col gap-y-12">
-    <Carousel
-      v-for="genre in genres"
-      :key="genre.name"
-      :genre="genre.name"
-      :limit="20"
-    />
+    <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
   </div>
 </template>
