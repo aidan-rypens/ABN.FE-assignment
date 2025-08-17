@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Show } from "~~/server/types/api.typings";
-import ShowItem from "~/features/ShowItem.vue";
 import CarouselArrow from "./CarouselArrow.vue";
+import CarouselItem from "./CarouselItem.vue";
 
 const { genre, limit, sort } = withDefaults(
   defineProps<{
@@ -15,11 +15,7 @@ const { genre, limit, sort } = withDefaults(
   }
 );
 
-const {
-  data: shows,
-  pending,
-  error,
-} = await useFetch<Show[]>(`/api/shows/${genre}`, {
+const { data: shows, pending } = await useFetch<Show[]>(`/api/shows/${genre}`, {
   query: { limit, sort },
 });
 
@@ -28,11 +24,11 @@ const scrollContainer = ref<HTMLElement | null>(null);
 const scroll = (direction: "left" | "right") => {
   if (!scrollContainer.value) return;
 
-  const itemWidth = 192 + 48; // w-48 (192px) + gap-x-12 (48px)
+  const itemWidth = 192 + 48;
   const visibleItems = Math.floor(
     scrollContainer.value.clientWidth / itemWidth
   );
-  const scrollAmount = itemWidth * Math.max(1, visibleItems - 1); // Scroll by visible items minus 1 for overlap
+  const scrollAmount = itemWidth * Math.max(1, visibleItems - 1);
 
   const currentScroll = scrollContainer.value.scrollLeft;
   const newPosition =
@@ -41,45 +37,55 @@ const scroll = (direction: "left" | "right") => {
       : currentScroll - scrollAmount;
 
   scrollContainer.value.scrollTo({
-    left: Math.max(0, newPosition), // Prevent negative scroll
+    left: Math.max(0, newPosition),
     behavior: "smooth",
   });
 };
+
+const showCarouselArrows = computed(() => {
+  return !pending.value && shows.value && shows.value.length > 0;
+});
 </script>
 
 <template>
   <div class="relative">
     <h2 class="text-2xl font-bold mb-4">{{ genre }}</h2>
-    <div v-if="pending">Loading...</div>
-    <div v-else-if="error">Error: {{ error }}</div>
-
     <div class="relative">
       <div
         ref="scrollContainer"
         class="flex gap-x-12 overflow-x-auto h-[25rem] scrollbar-hide scroll-smooth"
       >
-        <div v-for="show in shows" :key="show.id" class="flex-none">
-          <ShowItem
-            :name="show.name"
-            :rating="show.rating"
-            :imageSrc="show?.image?.medium"
-          />
-        </div>
+        <CarouselItem
+          v-for="show in shows"
+          :key="show.id"
+          :name="show.name"
+          :rating="show.rating"
+          :imageSrc="show?.image?.medium"
+          :isLoading="pending"
+        />
       </div>
-      <CarouselArrow direction="left" :onClick="() => scroll('left')" />
-      <CarouselArrow direction="right" :onClick="() => scroll('right')" />
+      <CarouselArrow
+        v-if="showCarouselArrows"
+        direction="left"
+        :onClick="() => scroll('left')"
+      />
+      <CarouselArrow
+        v-if="showCarouselArrows"
+        direction="right"
+        :onClick="() => scroll('right')"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
 }
 
 .scroll-smooth {

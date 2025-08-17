@@ -1,4 +1,4 @@
-import { TV_MAZE_API_URL } from "~~/server/constants";
+import { TV_MAZE_API_URL } from "~~/server/api/constants";
 import { Show } from "~~/server/types/api.typings";
 import { TVMazeShow } from "~~/server/types/tvMaze.typings";
 import { isValidGenre } from "~~/server/utils/genres";

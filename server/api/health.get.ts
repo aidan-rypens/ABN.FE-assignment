@@ -1,10 +1,4 @@
-import { TV_MAZE_API_URL } from "~~/server/constants";
-
-/* 
-  Connecting the application to a monitoring service could be more useful.
-  This is also insufficient as this only returns a 503 if a specific endpoint is not responding.
-  Showing errors at specific sections in the UI is a better approach.
-*/
+import { TV_MAZE_API_URL } from "~~/server/api/constants";
 
 export default defineEventHandler(async (event) => {
   try {
