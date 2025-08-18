@@ -1,17 +1,14 @@
 <script setup lang="ts">
+import debounce from "lodash.debounce";
+
 import CarouselArrow from "./CarouselArrow.vue";
 import CarouselItem from "./CarouselItem.vue";
 import { useInfiniteCarousel } from "~/composables/useInfiniteCarousel";
 
-const { genre, sort } = withDefaults(
-  defineProps<{
-    genre: string;
-    sort?: "rating";
-  }>(),
-  {
-    sort: "rating",
-  }
-);
+const { genre, sort = "rating" } = defineProps<{
+  genre: string;
+  sort?: "rating";
+}>();
 
 const { shows, isLoading, isLoadingMore, hasMore, error, loadMore } =
   useInfiniteCarousel(genre, sort);
@@ -64,18 +61,6 @@ onMounted(() => {
 onUnmounted(() => {
   scrollContainer.value?.removeEventListener("scroll", handleScroll);
 });
-
-function debounce(func: Function, wait: number) {
-  let timeout: NodeJS.Timeout;
-  return function executedFunction(...args: any[]) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
 </script>
 
 <template>
