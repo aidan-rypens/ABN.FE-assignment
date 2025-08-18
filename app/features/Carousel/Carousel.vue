@@ -11,7 +11,7 @@ const { genre, sort = "rating" } = defineProps<{
 }>();
 
 const { shows, isLoading, isLoadingMore, hasMore, error, loadMore } =
-  useInfiniteCarousel(genre, sort);
+  useInfiniteCarousel(genre);
 
 const shouldShowCarousel = computed(() => {
   return isLoading.value || shows.value.length > 0;
