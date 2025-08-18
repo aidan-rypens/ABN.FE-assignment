@@ -13,6 +13,7 @@ interface QueryParams {
   offset: number;
   sort: string;
   searchQuery?: string;
+  genre?: string;
 }
 
 export default defineEventHandler(
@@ -23,7 +24,6 @@ export default defineEventHandler(
     hasMore: boolean;
     totalCount: number;
   }> => {
-    const genreName = getRouterParam(event, "genre") as string;
     const query = getQuery(event);
 
     const params: QueryParams = {
@@ -31,16 +31,17 @@ export default defineEventHandler(
       offset: parseInt(query.offset as string) || 0,
       sort: (query.sort as string) || "rating",
       searchQuery: query.q as string,
+      genre: query.genre as string,
     };
 
-    if (!genreName || !isValidGenre(genreName)) {
+    if (params.genre && !isValidGenre(params.genre)) {
       throw createError({
         statusCode: 400,
-        statusMessage: `Invalid genre: ${genreName}`,
+        statusMessage: `Invalid genre: ${params.genre}`,
       });
     }
 
-    const cacheKey = createCacheKey(genreName, params.sort, params.searchQuery);
+    const cacheKey = createCacheKey(params);
 
     try {
       const storage = useStorage("memory");
@@ -48,7 +49,7 @@ export default defineEventHandler(
 
       if (!allShows) {
         const rawShows = await fetchShows(params.searchQuery);
-        const filteredShows = filterShowsByGenre(rawShows, genreName);
+        const filteredShows = filterShows(rawShows, params.genre);
         const sortedShows = sortShows(filteredShows, params.sort);
 
         allShows = sortedShows;
@@ -59,23 +60,24 @@ export default defineEventHandler(
 
       return paginateResults(allShows, params.offset, params.limit);
     } catch (error) {
-      console.error(`Failed to fetch shows for genre ${genreName}:`, error);
+      console.error(`❌ Failed to fetch shows:`, error);
       throw createError({
         statusCode: 500,
-        statusMessage: `Failed to fetch shows for genre: ${genreName}`,
+        statusMessage: `Failed to fetch shows`,
       });
     }
   }
 );
 
-function createCacheKey(
-  genreName: string,
-  sort: string,
-  searchQuery?: string
-): string {
-  return searchQuery
-    ? `genre:${genreName.toLowerCase()}:search:${searchQuery.toLowerCase()}:${sort}`
-    : `genre:${genreName.toLowerCase()}:all:${sort}`;
+function createCacheKey(params: QueryParams): string {
+  const parts = ["shows"];
+
+  if (params.genre) parts.push(`genre:${params.genre.toLowerCase()}`);
+  if (params.searchQuery)
+    parts.push(`search:${params.searchQuery.toLowerCase()}`);
+  parts.push(`sort:${params.sort}`);
+
+  return parts.join(":");
 }
 
 async function fetchShows(searchQuery?: string): Promise<TVMazeShow[]> {
@@ -91,26 +93,30 @@ async function fetchShows(searchQuery?: string): Promise<TVMazeShow[]> {
   }
 }
 
-function filterShowsByGenre(shows: TVMazeShow[], genreName: string): Show[] {
-  return shows
-    .filter((show) =>
-      show.genres.some((g) => g.toLowerCase() === genreName.toLowerCase())
-    )
-    .map((show) => ({
-      id: show.id,
-      name: show.name,
-      summary: show.summary?.replace(/<[^>]*>/g, "") || "No summary available",
-      image: show.image || null,
-      rating: show.rating?.average || 0,
-      premiered: show.premiered,
-      status: show.status,
-      genres: show.genres,
-      language: show.language,
-      runtime: show.runtime,
-      network: show.network,
-      schedule: show.schedule,
-      officialSite: show.officialSite,
-    }));
+function filterShows(shows: TVMazeShow[], genre?: string): Show[] {
+  let filteredShows = shows;
+
+  if (genre) {
+    filteredShows = shows.filter((show) =>
+      show.genres.some((g) => g.toLowerCase() === genre.toLowerCase())
+    );
+  }
+
+  return filteredShows.map((show) => ({
+    id: show.id,
+    name: show.name,
+    summary: show.summary?.replace(/<[^>]*>/g, "") || "No summary available",
+    image: show.image || null,
+    rating: show.rating?.average || 0,
+    premiered: show.premiered,
+    status: show.status,
+    genres: show.genres,
+    language: show.language,
+    runtime: show.runtime,
+    network: show.network,
+    schedule: show.schedule,
+    officialSite: show.officialSite,
+  }));
 }
 
 function sortShows(shows: Show[], sort: string): Show[] {
@@ -147,6 +153,5 @@ function paginateResults(shows: Show[], offset: number, limit: number) {
 }
 
 function getCacheTTL(searchQuery?: string): number {
-  // Cache for shorter time when searching (15 minutes vs 30 minutes)
   return searchQuery ? 900 : 1800;
 }

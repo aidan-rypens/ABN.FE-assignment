@@ -18,7 +18,7 @@ export const useInfiniteCarousel = (
   const error = ref<string | null>(null);
   const offset = ref(INITIAL_OFFSET);
 
-  const loadShows = async (reset = false) => {
+  const fetchShows = async (reset = false) => {
     if (reset) {
       offset.value = INITIAL_OFFSET;
       shows.value = [];
@@ -36,11 +36,12 @@ export const useInfiniteCarousel = (
         shows: Show[];
         hasMore: boolean;
         totalCount: number;
-      }>(`/api/shows/${genre}`, {
+      }>(`/api/shows`, {
         query: {
           limit: DEFAULT_LIMIT,
           offset: offset.value,
           sort,
+          genre,
           q: searchQuery.value,
         },
       });
@@ -55,7 +56,7 @@ export const useInfiniteCarousel = (
       offset.value += DEFAULT_LIMIT;
     } catch (err) {
       error.value = `${ERROR_MESSAGE_PREFIX} ${genre} shows`;
-      console.error("Error loading shows:", err);
+      console.error("Error fetching shows:", err);
     } finally {
       loading.value = false;
     }
@@ -63,16 +64,16 @@ export const useInfiniteCarousel = (
 
   const loadMore = () => {
     if (hasMore.value && !isLoadingMore.value) {
-      loadShows();
+      fetchShows();
     }
   };
 
   watch(searchQuery, () => {
-    loadShows(true);
+    fetchShows(true);
   });
 
   onMounted(() => {
-    loadShows(true);
+    fetchShows(true);
   });
 
   return {
@@ -82,6 +83,6 @@ export const useInfiniteCarousel = (
     hasMore: readonly(hasMore),
     error: readonly(error),
     loadMore,
-    refresh: () => loadShows(true),
+    refresh: () => fetchShows(true),
   };
 };
