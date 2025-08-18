@@ -58,7 +58,13 @@ export default defineEventHandler(
         await storage.setItem(cacheKey, allShows, { ttl });
       }
 
-      return paginateResults(allShows, params.offset, params.limit);
+      const result = paginateResults(
+        allShows,
+        params.offset,
+        params.limit,
+        !!params.searchQuery
+      );
+      return result;
     } catch (error) {
       console.error(`❌ Failed to fetch shows:`, error);
       throw createError({
@@ -141,7 +147,22 @@ function sortShows(shows: Show[], sort: string): Show[] {
   return sortedShows;
 }
 
-function paginateResults(shows: Show[], offset: number, limit: number) {
+function paginateResults(
+  shows: Show[],
+  offset: number,
+  limit: number,
+  isSearch: boolean = false
+) {
+  // For search queries, return all results (no pagination)
+  if (isSearch) {
+    return {
+      shows: shows,
+      hasMore: false,
+      totalCount: shows.length,
+    };
+  }
+
+  // For browse mode, use normal pagination
   const paginatedShows = shows.slice(offset, offset + limit);
   const hasMore = offset + limit < shows.length;
 
