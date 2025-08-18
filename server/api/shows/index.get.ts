@@ -13,7 +13,7 @@ interface QueryParams {
   offset: number;
   sort: string;
   searchQuery?: string;
-  genre?: string;
+  genres: string[];
 }
 
 export default defineEventHandler(
@@ -23,48 +23,90 @@ export default defineEventHandler(
     shows: Show[];
     hasMore: boolean;
     totalCount: number;
+    genreResults?: Record<string, { shows: Show[]; totalCount: number }>;
   }> => {
     const query = getQuery(event);
+
+    let genres: string[] = [];
+    if (query.genres) {
+      genres = Array.isArray(query.genres)
+        ? (query.genres as string[])
+        : [query.genres as string];
+    } else if (query.genre) {
+      genres = [query.genre as string];
+    }
 
     const params: QueryParams = {
       limit: parseInt(query.limit as string) || 20,
       offset: parseInt(query.offset as string) || 0,
       sort: (query.sort as string) || "rating",
       searchQuery: query.q as string,
-      genre: query.genre as string,
+      genres,
     };
 
-    if (params.genre && !isValidGenre(params.genre)) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: `Invalid genre: ${params.genre}`,
-      });
+    for (const genre of params.genres) {
+      if (!isValidGenre(genre)) {
+        throw createError({
+          statusCode: 400,
+          statusMessage: `Invalid genre: ${genre}`,
+        });
+      }
     }
 
     const cacheKey = createCacheKey(params);
 
     try {
       const storage = useStorage("memory");
-      let allShows = (await storage.getItem(cacheKey)) as Show[];
+      let cachedResult = (await storage.getItem(cacheKey)) as any;
 
-      if (!allShows) {
+      if (!cachedResult) {
         const rawShows = await fetchShows(params.searchQuery);
-        const filteredShows = filterShows(rawShows, params.genre);
-        const sortedShows = sortShows(filteredShows, params.sort);
 
-        allShows = sortedShows;
+        if (params.genres.length > 1) {
+          const genreResults: Record<
+            string,
+            { shows: Show[]; totalCount: number }
+          > = {};
+
+          for (const genre of params.genres) {
+            const filteredShows = filterShows(rawShows, genre);
+            const sortedShows = sortShows(filteredShows, params.sort);
+
+            genreResults[genre] = {
+              shows: sortedShows.slice(
+                params.offset,
+                params.offset + params.limit
+              ),
+              totalCount: sortedShows.length,
+            };
+          }
+
+          cachedResult = {
+            shows: [],
+            hasMore: false,
+            totalCount: 0,
+            genreResults,
+          };
+        } else {
+          const genreFilter = params.genres[0] || undefined;
+          const filteredShows = filterShows(rawShows, genreFilter);
+          const sortedShows = sortShows(filteredShows, params.sort);
+
+          const result = paginateResults(
+            sortedShows,
+            params.offset,
+            params.limit,
+            !!params.searchQuery
+          );
+
+          cachedResult = result;
+        }
 
         const ttl = getCacheTTL(params.searchQuery);
-        await storage.setItem(cacheKey, allShows, { ttl });
+        await storage.setItem(cacheKey, cachedResult, { ttl });
       }
 
-      const result = paginateResults(
-        allShows,
-        params.offset,
-        params.limit,
-        !!params.searchQuery
-      );
-      return result;
+      return cachedResult;
     } catch (error) {
       console.error(`❌ Failed to fetch shows:`, error);
       throw createError({
@@ -76,14 +118,13 @@ export default defineEventHandler(
 );
 
 function createCacheKey(params: QueryParams): string {
-  const parts = ["shows"];
-
-  if (params.genre) parts.push(`genre:${params.genre.toLowerCase()}`);
-  if (params.searchQuery)
-    parts.push(`search:${params.searchQuery.toLowerCase()}`);
-  parts.push(`sort:${params.sort}`);
-
-  return parts.join(":");
+  const genresKey =
+    params.genres.length > 0 ? params.genres.sort().join(",") : "all";
+  return params.searchQuery
+    ? `search:${params.searchQuery.toLowerCase()}:genres:${genresKey}:${
+        params.sort
+      }`
+    : `browse:genres:${genresKey}:${params.sort}:${params.offset}:${params.limit}`;
 }
 
 async function fetchShows(searchQuery?: string): Promise<TVMazeShow[]> {
@@ -153,7 +194,6 @@ function paginateResults(
   limit: number,
   isSearch: boolean = false
 ) {
-  // For search queries, return all results (no pagination)
   if (isSearch) {
     return {
       shows: shows,
@@ -162,7 +202,6 @@ function paginateResults(
     };
   }
 
-  // For browse mode, use normal pagination
   const paginatedShows = shows.slice(offset, offset + limit);
   const hasMore = offset + limit < shows.length;
 
