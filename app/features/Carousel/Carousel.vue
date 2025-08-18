@@ -13,6 +13,10 @@ const { genre, sort = "rating" } = defineProps<{
 const { shows, isLoading, isLoadingMore, hasMore, error, loadMore } =
   useInfiniteCarousel(genre, sort);
 
+const shouldShowCarousel = computed(() => {
+  return isLoading.value || shows.value.length > 0;
+});
+
 const scrollContainer = ref<HTMLElement | null>(null);
 
 const scroll = (direction: "left" | "right") => {
@@ -64,7 +68,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div v-if="shouldShowCarousel" class="relative">
     <h2 class="text-2xl font-bold mb-4">
       <template v-if="isLoading">
         <div class="h-8 bg-gray-700 rounded w-48 animate-pulse"></div>
@@ -98,7 +102,6 @@ onUnmounted(() => {
             :rating="show.rating"
             :imageSrc="show?.image?.medium"
           />
-
           <CarouselItem
             v-if="isLoadingMore"
             v-for="n in 3"

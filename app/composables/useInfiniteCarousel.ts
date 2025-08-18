@@ -1,17 +1,26 @@
 import type { Show } from "~~/server/types/api.typings";
 
-export const useInfiniteCarousel = (genre: string, sort: string = "rating") => {
+const DEFAULT_LIMIT = 20;
+const DEFAULT_SORT = "rating";
+const INITIAL_OFFSET = 0;
+const ERROR_MESSAGE_PREFIX = "Failed to load";
+
+export const useInfiniteCarousel = (
+  genre: string,
+  sort: string = DEFAULT_SORT
+) => {
+  const route = useRoute();
+  const searchQuery = computed(() => (route.query.q as string) || "");
   const shows = ref<Show[]>([]);
   const isLoading = ref(false);
   const isLoadingMore = ref(false);
   const hasMore = ref(true);
   const error = ref<string | null>(null);
-  const offset = ref(0);
-  const limit = 20;
+  const offset = ref(INITIAL_OFFSET);
 
   const loadShows = async (reset = false) => {
     if (reset) {
-      offset.value = 0;
+      offset.value = INITIAL_OFFSET;
       shows.value = [];
       hasMore.value = true;
       error.value = null;
@@ -29,9 +38,10 @@ export const useInfiniteCarousel = (genre: string, sort: string = "rating") => {
         totalCount: number;
       }>(`/api/shows/${genre}`, {
         query: {
-          limit,
+          limit: DEFAULT_LIMIT,
           offset: offset.value,
           sort,
+          q: searchQuery.value,
         },
       });
 
@@ -42,9 +52,9 @@ export const useInfiniteCarousel = (genre: string, sort: string = "rating") => {
       }
 
       hasMore.value = response.hasMore;
-      offset.value += limit;
+      offset.value += DEFAULT_LIMIT;
     } catch (err) {
-      error.value = `Failed to load ${genre} shows`;
+      error.value = `${ERROR_MESSAGE_PREFIX} ${genre} shows`;
       console.error("Error loading shows:", err);
     } finally {
       loading.value = false;
@@ -56,6 +66,10 @@ export const useInfiniteCarousel = (genre: string, sort: string = "rating") => {
       loadShows();
     }
   };
+
+  watch(searchQuery, () => {
+    loadShows(true);
+  });
 
   onMounted(() => {
     loadShows(true);
