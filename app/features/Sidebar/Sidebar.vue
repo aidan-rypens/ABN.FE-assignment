@@ -32,7 +32,7 @@ const { hasErrors } = useCarouselRegistry();
         external
         target="_blank"
         rel="noopener noreferrer"
-        class="group hover:opacity-80 transition-opacity duration-200 flex flex-col items-center gap-y-2"
+        class="group hover:opacity-100 transition-opacity duration-200 flex flex-col items-center gap-y-2"
       >
         <img
           src="/images/aidan.jpg"
@@ -40,9 +40,22 @@ const { hasErrors } = useCarouselRegistry();
           class="w-14 h-14 rounded-full object-cover mx-auto"
         />
         <span
-          class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 animate-bounce"
+          class="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 animate-bounce"
         >
-          hire this guy!
+          <span style="color: #ffb3ba">h</span>
+          <span style="color: #ffe0ac">i</span>
+          <span style="color: #ffffba">r</span>
+          <span style="color: #baffc9">e</span>
+          <span style="color: #bae1ff">&nbsp;</span>
+          <span style="color: #e0bbff">t</span>
+          <span style="color: #b3ffd9">h</span>
+          <span style="color: #ffb3ba">i</span>
+          <span style="color: #ffe0ac">s</span>
+          <span style="color: #ffffba">&nbsp;</span>
+          <span style="color: #baffc9">g</span>
+          <span style="color: #bae1ff">u</span>
+          <span style="color: #e0bbff">y</span>
+          <span style="color: #b3ffd9">!</span>
         </span>
       </NuxtLink>
     </div>
