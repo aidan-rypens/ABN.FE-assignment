@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CarouselItemControls from "./CarouselItemControls.vue";
+
 const props = defineProps<{
   name: string;
   rating: number;
@@ -8,7 +10,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="w-48 h-80 flex flex-col overflow-hidden flex-none">
+  <div
+    class="w-48 h-80 flex flex-col overflow-hidden flex-none cursor-pointer group"
+  >
     <template v-if="props.isLoading">
       <div class="animate-pulse flex flex-col h-full">
         <div class="bg-gray-300 rounded w-full h-72 mb-4" />
@@ -27,6 +31,7 @@ const props = defineProps<{
           <div
             class="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/100 via-black/40 to-transparent pointer-events-none"
           />
+          <CarouselItemControls />
         </div>
         <div
           class="absolute bottom-4 left-0 w-full px-3 py-2 flex flex-col gap-y-1"

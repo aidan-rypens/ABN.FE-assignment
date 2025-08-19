@@ -108,7 +108,7 @@ watch(
     <div class="relative">
       <div
         ref="scrollContainer"
-        class="flex gap-x-6 overflow-x-auto h-80 scrollbar-hide scroll-smooth"
+        class="flex gap-x-4 overflow-x-auto h-80 scrollbar-hide scroll-smooth"
       >
         <template v-if="isLoading">
           <CarouselItem
@@ -137,7 +137,6 @@ watch(
           />
         </template>
       </div>
-
       <template v-if="!isLoading">
         <CarouselArrow
           v-if="canScrollLeft"
