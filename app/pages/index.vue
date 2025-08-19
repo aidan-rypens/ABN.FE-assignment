@@ -34,12 +34,10 @@ const shouldShowNoResults = computed(() => {
         :rating="9.2"
       />
     </div>
-
     <div v-if="shouldShowNoResults" class="text-center py-12">
       <h2 class="text-2xl font-semibold text-white mb-2">No results found</h2>
       <p class="text-gray-400">Try adjusting your search term...</p>
     </div>
-
     <div class="flex flex-col gap-y-12">
       <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
     </div>
