@@ -17,7 +17,7 @@ const hasSearchQuery = computed(
   <ApiErrorBanner />
   <div class="mx-6">
     <div class="flex flex-col items-end pt-12">
-      <div class="max-w-2xl w-full">
+      <div class="max-w-xl w-full">
         <Search />
       </div>
     </div>
@@ -28,7 +28,7 @@ const hasSearchQuery = computed(
         :rating="9.2"
       />
     </div>
-    <div class="flex flex-col gap-y-12">
+    <div class="flex flex-col gap-y-12 pb-12">
       <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
     </div>
   </div>
