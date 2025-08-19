@@ -21,7 +21,7 @@ watch(query, updateURL);
 </script>
 
 <template>
-  <div class="flex items-center gap-x-2">
+  <div class="flex items-center gap-x-2 w-full">
     <div class="relative w-full">
       <input
         type="text"

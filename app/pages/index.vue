@@ -8,9 +8,14 @@ const { data: genres } = await useFetch<TVGenreData[]>("/api/shows/genres");
 
 <template>
   <ApiErrorBanner />
-  <h1 class="text-4xl font-bold">Dashboard</h1>
-  <Search />
-  <div class="flex flex-col gap-y-12">
-    <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
+  <div class="mx-6">
+    <div class="flex flex-col items-end pt-12">
+      <div class="max-w-2xl w-full">
+        <Search />
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-12">
+      <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
+    </div>
   </div>
 </template>

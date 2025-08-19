@@ -83,7 +83,7 @@ onUnmounted(() => {
     <div class="relative">
       <div
         ref="scrollContainer"
-        class="flex gap-x-12 overflow-x-auto h-[25rem] scrollbar-hide scroll-smooth"
+        class="flex gap-x-12 overflow-x-auto h-80 scrollbar-hide scroll-smooth"
       >
         <template v-if="isLoading">
           <CarouselItem
