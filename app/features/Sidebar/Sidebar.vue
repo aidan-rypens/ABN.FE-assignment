@@ -8,13 +8,13 @@
         title="Just some placeholder icons"
         class="flex flex-col items-center gap-y-12 cursor-not-allowed"
       >
-        <img src="/icons/home.svg" alt="Home" class="w-6 h-6" />
+        <img src="/icons/sidebar/home.svg" alt="Home" class="w-6 h-6" />
         <img
-          src="/icons/notifications.svg"
+          src="/icons/sidebar/notifications.svg"
           alt="Notifications"
           class="w-6 h-6"
         />
-        <img src="/icons/heart.svg" alt="Heart" class="w-6 h-6" />
+        <img src="/icons/sidebar/heart.svg" alt="Heart" class="w-6 h-6" />
       </div>
     </div>
     <div class="p-4 pb-6 flex flex-col items-center gap-y-4">

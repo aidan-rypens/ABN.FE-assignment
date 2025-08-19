@@ -29,7 +29,7 @@ watch(query, updateURL);
         placeholder="Search for a show..."
         class="w-full p-2 pr-10 rounded-md border-neutral-700/50 border-2 text-gray-300 placeholder-gray-300 text-sm"
         maxlength="100"
-        aria-label="Search for TV shows"
+        aria-label="Search for a show"
       />
       <span
         v-if="!query || query.length === 0"

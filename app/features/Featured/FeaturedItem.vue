@@ -34,8 +34,9 @@ const props = defineProps<{
           Watch
         </button>
         <button
-          class="cursor-pointer bg-white text-black px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors"
+          class="cursor-pointer bg-white text-black px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 flex items-center gap-x-2 transition-colors"
         >
+          <img src="/icons/heart.svg" alt="heart" class="w-5 h-5" />
           Add to list
         </button>
       </div>
