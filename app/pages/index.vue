@@ -21,12 +21,17 @@ const shouldShowNoResults = computed(() => {
 
 <template>
   <ApiErrorBanner />
-  <div class="mx-6 flex flex-col gap-y-12" :class="{ 'pt-20': hasErrors }">
-    <div class="flex flex-col items-end pt-12">
+  <div
+    class="sticky z-40 bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-800/50"
+    :class="{ 'top-20': hasErrors, 'top-0': !hasErrors }"
+  >
+    <div class="mx-6 flex flex-col items-end py-4">
       <div class="md:max-w-xl w-full">
         <Search />
       </div>
     </div>
+  </div>
+  <div class="mx-6 flex flex-col gap-y-12 pt-8">
     <div v-if="!hasSearchQuery">
       <FeaturedItem
         title="Breaking Bad"
@@ -38,6 +43,7 @@ const shouldShowNoResults = computed(() => {
       <h2 class="text-2xl font-semibold text-white mb-2">No results found</h2>
       <p class="text-gray-400">Try adjusting your search term...</p>
     </div>
+
     <div class="flex flex-col gap-y-12">
       <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
     </div>
