@@ -1,6 +1,13 @@
+<script setup lang="ts">
+import { useCarouselRegistry } from "~/composables/useCarouselRegistry";
+
+const { hasErrors } = useCarouselRegistry();
+</script>
+
 <template>
   <aside
     class="hidden md:flex fixed left-0 top-0 h-full w-32 bg-black z-10 flex-col"
+    :class="{ 'pt-20': hasErrors }"
   >
     <div class="flex-1 flex flex-col items-center pt-12 gap-y-24">
       <NuxtLink to="/">

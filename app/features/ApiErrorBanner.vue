@@ -1,14 +1,15 @@
 <script setup lang="ts">
-const { error } = await useFetch("/api/health");
-const isHealthy = computed(() => error.value?.statusCode !== 503);
+import { useCarouselRegistry } from "~/composables/useCarouselRegistry";
+
+const { hasErrors } = useCarouselRegistry();
 </script>
 
 <template>
   <div
-    class="bg-yellow-300 w-full py-6 mx-auto flex items-center justify-center"
-    v-if="!isHealthy"
+    class="fixed top-0 left-0 bg-red-500 w-full py-6 mx-auto flex items-center justify-center z-50"
+    v-if="hasErrors"
   >
-    We are experiencing some issues with the TV Maze API. Please try again.
+    We are experiencing some issues with the TV Maze API. Please try again
     later.
   </div>
 </template>

@@ -4,14 +4,18 @@ import debounce from "lodash.debounce";
 import CarouselArrow from "./CarouselArrow.vue";
 import CarouselItem from "./CarouselItem.vue";
 import { useInfiniteCarousel } from "~/composables/useInfiniteCarousel";
+import { useCarouselRegistry } from "~/composables/useCarouselRegistry";
+import type { Show } from "~~/server/types/api.typings";
 
-const { genre, sort = "rating" } = defineProps<{
+const { genre } = defineProps<{
   genre: string;
-  sort?: "rating";
 }>();
 
 const { shows, isLoading, isLoadingMore, hasMore, error, loadMore } =
   useInfiniteCarousel(genre);
+
+const { registerCarousel, updateCarousel, unregisterCarousel } =
+  useCarouselRegistry();
 
 const shouldShowCarousel = computed(() => {
   return isLoading.value || shows.value.length > 0;
@@ -75,13 +79,29 @@ const handleScroll = debounce(() => {
   checkAndLoadMore();
 }, 200);
 
+// Register this carousel and keep its state updated
 onMounted(() => {
+  registerCarousel(genre, {
+    isLoading: isLoading.value,
+    hasShows: shows.value.length > 0,
+    error: error.value,
+  });
   scrollContainer.value?.addEventListener("scroll", handleScroll);
   nextTick(updateScrollArrows);
 });
 
 onUnmounted(() => {
+  unregisterCarousel(genre);
   scrollContainer.value?.removeEventListener("scroll", handleScroll);
+});
+
+// Watch for state changes and update registry
+watch([isLoading, shows, error], () => {
+  updateCarousel(genre, {
+    isLoading: isLoading.value,
+    hasShows: shows.value.length > 0,
+    error: error.value,
+  });
 });
 
 watch(
@@ -126,7 +146,7 @@ watch(
             :name="show.name"
             :rating="show.rating"
             :imageSrc="show?.image?.medium"
-            :show="show"
+            :show="show as Show"
           />
           <CarouselItem
             v-if="isLoadingMore"
