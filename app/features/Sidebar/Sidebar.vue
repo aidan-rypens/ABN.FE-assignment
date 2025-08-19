@@ -1,0 +1,41 @@
+<template>
+  <aside class="fixed left-0 top-0 h-full w-32 bg-black z-10 flex flex-col">
+    <div class="flex-1 flex flex-col items-center pt-12 gap-y-24">
+      <NuxtLink to="/">
+        <img src="/icons/logo.svg" alt="Logo" class="w-10 h-10" />
+      </NuxtLink>
+      <div
+        title="Just some placeholder icons"
+        class="flex flex-col items-center gap-y-12 cursor-not-allowed"
+      >
+        <img src="/icons/home.svg" alt="Home" class="w-6 h-6" />
+        <img
+          src="/icons/notifications.svg"
+          alt="Notifications"
+          class="w-6 h-6"
+        />
+        <img src="/icons/heart.svg" alt="Heart" class="w-6 h-6" />
+      </div>
+    </div>
+    <div class="p-4 pb-6 flex flex-col items-center gap-y-4">
+      <NuxtLink
+        to="https://www.linkedin.com/in/aidanrypens/"
+        external
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group hover:opacity-80 transition-opacity duration-200 flex flex-col items-center gap-y-2"
+      >
+        <img
+          src="/images/aidan.jpg"
+          alt="Aidan Rypens Profile"
+          class="w-14 h-14 rounded-full object-cover mx-auto"
+        />
+        <span
+          class="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 animate-bounce"
+        >
+          hire this guy!
+        </span>
+      </NuxtLink>
+    </div>
+  </aside>
+</template>
