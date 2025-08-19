@@ -131,7 +131,7 @@ function transformShow(show: TVMazeShow): Show {
     name: show.name,
     summary: show.summary?.replace(/<[^>]*>/g, "") || "No summary available",
     image: show.image || null,
-    rating: show.rating?.average || 0,
+    rating: show.rating?.average || null,
     premiered: show.premiered,
     status: show.status,
     genres: show.genres,

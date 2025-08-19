@@ -26,6 +26,7 @@ const props = defineProps<{
       <div class="relative w-full h-full">
         <div class="w-full h-full relative">
           <img
+            v-if="props.imageSrc"
             :src="props.imageSrc"
             :alt="props.name"
             class="w-full h-full object-cover rounded-2xl"

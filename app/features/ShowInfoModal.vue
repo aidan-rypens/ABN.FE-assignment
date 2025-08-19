@@ -19,11 +19,6 @@ const formatDate = (dateString?: string) => {
     return "Unknown";
   }
 };
-
-const formatRuntime = (runtime?: number) => {
-  if (!runtime) return "Unknown";
-  return `${runtime} min`;
-};
 </script>
 
 <template>
@@ -35,9 +30,12 @@ const formatRuntime = (runtime?: number) => {
       <div
         class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-300"
       >
-        <div class="flex items-center gap-x-1">
+        <div
+          v-if="show?.rating !== null && show?.rating !== undefined"
+          class="flex items-center gap-x-1"
+        >
           <img src="/icons/white-star.svg" alt="star" class="w-4 h-4" />
-          <span class="font-medium">{{ show?.rating }}/10</span>
+          <span class="font-medium">{{ show.rating }}/10</span>
         </div>
         <span>{{ formatDate(show?.premiered) }}</span>
       </div>

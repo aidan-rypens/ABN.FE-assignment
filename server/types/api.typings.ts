@@ -7,7 +7,7 @@ export interface Show {
     original: string;
   } | null;
   genres: string[];
-  rating: number;
+  rating: number | null;
   premiered?: string;
   network?: {
     name: string;
