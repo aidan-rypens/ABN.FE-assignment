@@ -95,7 +95,6 @@ onUnmounted(() => {
   scrollContainer.value?.removeEventListener("scroll", handleScroll);
 });
 
-// Watch for state changes and update registry
 watch([isLoading, shows, error], () => {
   updateCarousel(genre, {
     isLoading: isLoading.value,
@@ -144,7 +143,7 @@ watch(
             v-for="show in shows"
             :key="show.id"
             :name="show.name"
-            :rating="show.rating"
+            :rating="show.rating || null"
             :imageSrc="show?.image?.medium"
             :show="show as Show"
           />

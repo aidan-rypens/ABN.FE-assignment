@@ -4,7 +4,7 @@ import type { Show } from "~~/server/types/api.typings";
 
 const props = defineProps<{
   name: string;
-  rating: number;
+  rating: number | null;
   imageSrc?: string;
   isLoading?: boolean;
   show?: Show;
