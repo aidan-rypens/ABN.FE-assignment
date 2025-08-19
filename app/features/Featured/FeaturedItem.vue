@@ -17,7 +17,9 @@ const props = defineProps<{
     <div
       class="absolute inset-0 bg-gradient-to-t from-black via-black/70 via-30% to-transparent"
     />
-    <div class="absolute bottom-8 left-8 text-white max-w-2xl">
+    <div
+      class="absolute left-0 top-0 w-full h-full flex flex-col justify-end p-4 pb-8 md:p-8 text-white max-w-2xl"
+    >
       <div class="flex items-center gap-x-1 mb-4">
         <img src="/icons/white-star.svg" alt="star" class="w-4 h-4 pb-0.5" />
         <span class="text-lg font-medium">{{ props.rating }}</span>
