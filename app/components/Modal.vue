@@ -74,13 +74,6 @@ watch(
               maxWidth || 'md:max-w-4xl',
             ]"
           >
-            <div
-              v-if="showMobileHandle"
-              class="md:hidden flex justify-center pt-2 pb-1 flex-shrink-0"
-            >
-              <div class="w-12 h-1 bg-neutral-600 rounded-full"></div>
-            </div>
-
             <slot name="header">
               <div
                 class="flex-shrink-0 bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-700/50 p-4 md:p-6"

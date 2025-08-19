@@ -29,9 +29,9 @@ const closeModal = () => {
       class="bg-white/20 backdrop-blur-sm rounded-full p-4 border border-white/30 hover:bg-white/30 hover:scale-110 transition-all duration-200"
     >
       <span
-        class="text-white font-bold text-lg select-none"
+        class="text-white font-bold text-lg select-none uppercase"
         @click.stop.prevent="() => {}"
-        >PLAY</span
+        >Watch</span
       >
     </div>
     <div class="absolute top-3 right-3">

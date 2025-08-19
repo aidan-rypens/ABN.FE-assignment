@@ -1,5 +1,5 @@
 import { TVGenreData } from "~~/server/utils/genres";
 
-export default defineEventHandler(async (event): Promise<TVGenreData[]> => {
+export default defineEventHandler(async (): Promise<TVGenreData[]> => {
   return getDashboardGenres();
 });

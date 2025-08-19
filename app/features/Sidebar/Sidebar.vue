@@ -2,6 +2,23 @@
 import { useCarouselRegistry } from "~/composables/useCarouselRegistry";
 
 const { hasErrors } = useCarouselRegistry();
+
+const letters = [
+  { char: "H", color: "#ffb3ba" },
+  { char: "i", color: "#ffe0ac" },
+  { char: "r", color: "#ffffba" },
+  { char: "e", color: "#baffc9" },
+  { char: " ", color: "#bae1ff" },
+  { char: "t", color: "#e0bbff" },
+  { char: "h", color: "#b3ffd9" },
+  { char: "i", color: "#ffb3ba" },
+  { char: "s", color: "#ffe0ac" },
+  { char: " ", color: "#ffffba" },
+  { char: "g", color: "#baffc9" },
+  { char: "u", color: "#bae1ff" },
+  { char: "y", color: "#e0bbff" },
+  { char: "!", color: "#b3ffd9" },
+];
 </script>
 
 <template>
@@ -40,24 +57,42 @@ const { hasErrors } = useCarouselRegistry();
           class="w-14 h-14 rounded-full object-cover mx-auto"
         />
         <span
-          class="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 animate-bounce"
+          class="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 wave-container"
         >
-          <span style="color: #ffb3ba">h</span>
-          <span style="color: #ffe0ac">i</span>
-          <span style="color: #ffffba">r</span>
-          <span style="color: #baffc9">e</span>
-          <span style="color: #bae1ff">&nbsp;</span>
-          <span style="color: #e0bbff">t</span>
-          <span style="color: #b3ffd9">h</span>
-          <span style="color: #ffb3ba">i</span>
-          <span style="color: #ffe0ac">s</span>
-          <span style="color: #ffffba">&nbsp;</span>
-          <span style="color: #baffc9">g</span>
-          <span style="color: #bae1ff">u</span>
-          <span style="color: #e0bbff">y</span>
-          <span style="color: #b3ffd9">!</span>
+          <span
+            v-for="(letter, index) in letters"
+            :key="index"
+            :style="{
+              color: letter.color,
+              animationDelay: `${index * 0.1}s`,
+            }"
+            class="wave-letter"
+          >
+            {{ letter.char === " " ? "\u00A0" : letter.char }}
+          </span>
         </span>
       </NuxtLink>
     </div>
   </aside>
 </template>
+
+<style scoped>
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.wave-letter {
+  display: inline-block;
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+.wave-container:hover .wave-letter {
+  animation-play-state: running;
+}
+</style>

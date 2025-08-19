@@ -32,7 +32,7 @@ const props = defineProps<{
         class="flex flex-col md:flex-row gap-3 md:gap-x-4 max-w-44 md:max-w-none"
       >
         <WatchButton>Watch</WatchButton>
-        <Button leadingIcon="/icons/heart.svg">Add to list</Button>
+        <Button leadingIcon="/icons/heart.svg" disabled>Add to list</Button>
       </div>
     </div>
   </div>

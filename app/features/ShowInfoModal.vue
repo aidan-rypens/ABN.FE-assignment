@@ -40,8 +40,6 @@ const formatRuntime = (runtime?: number) => {
           <span class="font-medium">{{ show?.rating }}/10</span>
         </div>
         <span>{{ formatDate(show?.premiered) }}</span>
-        <span>{{ formatRuntime(show?.runtime) }}</span>
-        <span class="capitalize">{{ show?.status.toLowerCase() }}</span>
       </div>
     </template>
 
@@ -68,7 +66,7 @@ const formatRuntime = (runtime?: number) => {
       <div class="lg:col-span-2 space-y-6">
         <div class="flex flex-col sm:flex-row gap-3">
           <WatchButton>Watch</WatchButton>
-          <Button leadingIcon="/icons/heart.svg">Add to list</Button>
+          <Button leadingIcon="/icons/heart.svg" disabled> Add to list </Button>
         </div>
 
         <div v-if="show?.genres.length">
