@@ -1,4 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ShowInfoModal from "../ShowInfoModal.vue";
+import type { Show } from "~~/server/types/api.typings";
+
+const props = defineProps<{
+  show?: Show;
+}>();
+
+const isModalOpen = ref(false);
+
+const openModal = (event: MouseEvent) => {
+  event.stopPropagation();
+  if (props.show) {
+    isModalOpen.value = true;
+  }
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
+</script>
 
 <template>
   <div
@@ -10,15 +30,24 @@
       <span class="text-white font-bold text-lg select-none">PLAY</span>
     </div>
     <div class="absolute top-3 right-3">
-      <div
+      <button
+        @click="openModal"
         class="w-8 h-8 bg-neutral-800/90 backdrop-blur-sm rounded-full border border-neutral-600/50 hover:bg-neutral-700/90 hover:border-neutral-500/60 transition-all duration-200 flex items-center justify-center group/info"
+        :disabled="!show"
+        aria-label="Show info"
       >
         <img
           src="/icons/info.svg"
           alt="info"
           class="w-4 h-4 opacity-70 group-hover/info:opacity-100 transition-opacity duration-200"
         />
-      </div>
+      </button>
     </div>
+
+    <ShowInfoModal
+      :show="show ?? null"
+      :isOpen="isModalOpen"
+      @close="closeModal"
+    />
   </div>
 </template>

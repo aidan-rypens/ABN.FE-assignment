@@ -126,6 +126,7 @@ watch(
             :name="show.name"
             :rating="show.rating"
             :imageSrc="show?.image?.medium"
+            :show="show"
           />
           <CarouselItem
             v-if="isLoadingMore"

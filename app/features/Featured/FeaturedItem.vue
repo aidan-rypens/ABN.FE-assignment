@@ -27,18 +27,8 @@ const props = defineProps<{
         {{ props.subtitle }}
       </p>
       <div class="flex gap-x-4">
-        <button
-          class="bg-gradient-to-r cursor-pointer from-[#00FF8D] to-[#00FFF2] text-black px-8 py-3 rounded-xl font-semibold hover:brightness-110 transition-colors flex items-center gap-x-2"
-        >
-          <img src="/icons/watch.svg" alt="watch" class="w-5 h-5" />
-          Watch
-        </button>
-        <button
-          class="cursor-pointer bg-white text-black px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 flex items-center gap-x-2 transition-colors"
-        >
-          <img src="/icons/heart.svg" alt="heart" class="w-5 h-5" />
-          Add to list
-        </button>
+        <WatchButton>Watch</WatchButton>
+        <Button leadingIcon="/icons/heart.svg">Add to list</Button>
       </div>
     </div>
   </div>

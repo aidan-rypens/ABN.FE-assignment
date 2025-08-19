@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import CarouselItemControls from "./CarouselItemControls.vue";
+import type { Show } from "~~/server/types/api.typings";
 
 const props = defineProps<{
   name: string;
   rating: number;
   imageSrc?: string;
   isLoading?: boolean;
+  show?: Show;
 }>();
 </script>
 
@@ -31,7 +33,7 @@ const props = defineProps<{
           <div
             class="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/100 via-black/40 to-transparent pointer-events-none"
           />
-          <CarouselItemControls />
+          <CarouselItemControls :show="props.show" />
         </div>
         <div
           class="absolute bottom-4 left-0 w-full px-3 py-2 flex flex-col gap-y-1"
