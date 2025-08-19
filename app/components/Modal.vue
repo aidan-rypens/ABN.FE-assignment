@@ -91,10 +91,15 @@ watch(
                   </div>
                   <button
                     @click="handleClose"
-                    class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-neutral-800 rounded-full flex-shrink-0"
+                    class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-neutral-800 rounded-full flex-shrink-0 cursor-pointer"
                     aria-label="Close modal"
                   >
-                    <img src="/icons/close.svg" alt="close" class="w-6 h-6" />
+                    <img
+                      title="Close"
+                      src="/icons/close.svg"
+                      alt="close"
+                      class="w-6 h-6"
+                    />
                   </button>
                 </div>
               </div>
