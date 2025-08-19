@@ -19,6 +19,18 @@ const shouldShowCarousel = computed(() => {
 
 const scrollContainer = ref<HTMLElement | null>(null);
 
+const canScrollLeft = ref(false);
+const canScrollRight = ref(false);
+
+const updateScrollArrows = () => {
+  if (!scrollContainer.value) return;
+
+  const { scrollLeft, scrollWidth, clientWidth } = scrollContainer.value;
+
+  canScrollLeft.value = scrollLeft > 0;
+  canScrollRight.value = scrollLeft + clientWidth < scrollWidth - 1;
+};
+
 const scroll = (direction: "left" | "right") => {
   if (!scrollContainer.value) return;
 
@@ -42,6 +54,8 @@ const scroll = (direction: "left" | "right") => {
   if (direction === "right") {
     checkAndLoadMore();
   }
+
+  setTimeout(updateScrollArrows, 300);
 };
 
 const checkAndLoadMore = () => {
@@ -56,15 +70,26 @@ const checkAndLoadMore = () => {
   }
 };
 
-const handleScroll = debounce(checkAndLoadMore, 200);
+const handleScroll = debounce(() => {
+  updateScrollArrows();
+  checkAndLoadMore();
+}, 200);
 
 onMounted(() => {
   scrollContainer.value?.addEventListener("scroll", handleScroll);
+  nextTick(updateScrollArrows);
 });
 
 onUnmounted(() => {
   scrollContainer.value?.removeEventListener("scroll", handleScroll);
 });
+
+watch(
+  () => shows.value.length,
+  () => {
+    nextTick(updateScrollArrows);
+  }
+);
 </script>
 
 <template>
@@ -114,8 +139,16 @@ onUnmounted(() => {
       </div>
 
       <template v-if="!isLoading">
-        <CarouselArrow direction="left" :onClick="() => scroll('left')" />
-        <CarouselArrow direction="right" :onClick="() => scroll('right')" />
+        <CarouselArrow
+          v-if="canScrollLeft"
+          direction="left"
+          :onClick="() => scroll('left')"
+        />
+        <CarouselArrow
+          v-if="canScrollRight"
+          direction="right"
+          :onClick="() => scroll('right')"
+        />
       </template>
     </div>
   </div>
