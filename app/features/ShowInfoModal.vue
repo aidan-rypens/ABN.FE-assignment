@@ -30,12 +30,9 @@ const formatDate = (dateString?: string) => {
       <div
         class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-300"
       >
-        <div
-          v-if="show?.rating !== null && show?.rating !== undefined"
-          class="flex items-center gap-x-1"
-        >
+        <div class="flex items-center gap-x-1">
           <img src="/icons/white-star.svg" alt="star" class="w-4 h-4" />
-          <span class="font-medium">{{ show.rating }}/10</span>
+          <span class="font-medium">{{ show?.rating }}/10</span>
         </div>
         <span>{{ formatDate(show?.premiered) }}</span>
       </div>
@@ -44,7 +41,7 @@ const formatDate = (dateString?: string) => {
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
       <div class="lg:col-span-1">
         <div
-          class="aspect-[3/4] max-w-xs mx-auto lg:max-w-none lg:mx-0 rounded-xl overflow-hidden bg-neutral-800"
+          class="aspect-[16/9] lg:aspect-[3/4] mx-auto lg:max-w-none lg:mx-0 rounded-xl overflow-hidden bg-neutral-800"
         >
           <img
             v-if="show?.image?.original"
@@ -62,11 +59,10 @@ const formatDate = (dateString?: string) => {
       </div>
 
       <div class="lg:col-span-2 space-y-6">
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex flex-col sm:flex-row gap-3 sm:max-w-none max-w-44">
           <WatchButton>Watch</WatchButton>
-          <Button leadingIcon="/icons/heart.svg" disabled> Add to list </Button>
+          <Button leadingIcon="/icons/heart.svg" disabled>Add to list</Button>
         </div>
-
         <div v-if="show?.genres.length">
           <h3 class="text-lg font-semibold text-white mb-3">Genres</h3>
           <div class="flex flex-wrap gap-2">
@@ -79,14 +75,12 @@ const formatDate = (dateString?: string) => {
             </span>
           </div>
         </div>
-
         <div>
           <h3 class="text-lg font-semibold text-white mb-3">Summary</h3>
           <p class="text-gray-300 leading-relaxed text-sm md:text-base">
             {{ show?.summary }}
           </p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div v-if="show?.network">
             <h4 class="text-md font-semibold text-white mb-2">Network</h4>
@@ -95,7 +89,6 @@ const formatDate = (dateString?: string) => {
               {{ show.network.country.name }}
             </p>
           </div>
-
           <div>
             <h4 class="text-md font-semibold text-white mb-2">Details</h4>
             <div class="space-y-1 text-sm">
