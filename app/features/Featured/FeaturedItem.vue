@@ -22,11 +22,15 @@ const props = defineProps<{
         <img src="/icons/white-star.svg" alt="star" class="w-4 h-4 pb-0.5" />
         <span class="text-lg font-medium">{{ props.rating }}</span>
       </div>
-      <h1 class="text-5xl font-bold mb-4">{{ props.title }}</h1>
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 line-clamp-3">
+        {{ props.title }}
+      </h1>
       <p class="text-sm text-gray-200 mb-6 line-clamp-3">
         {{ props.subtitle }}
       </p>
-      <div class="flex gap-x-4">
+      <div
+        class="flex flex-col md:flex-row gap-3 md:gap-x-4 max-w-44 md:max-w-none"
+      >
         <WatchButton>Watch</WatchButton>
         <Button leadingIcon="/icons/heart.svg">Add to list</Button>
       </div>

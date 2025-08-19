@@ -5,7 +5,7 @@ import Sidebar from "~/features/Sidebar/Sidebar.vue";
 <template>
   <div class="min-h-screen bg-neutral-900 text-white font-sans">
     <Sidebar />
-    <main class="ml-40">
+    <main class="md:ml-40">
       <NuxtPage />
     </main>
   </div>

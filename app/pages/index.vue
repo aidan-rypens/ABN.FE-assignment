@@ -15,20 +15,20 @@ const hasSearchQuery = computed(
 
 <template>
   <ApiErrorBanner />
-  <div class="mx-6">
+  <div class="mx-6 flex flex-col gap-y-12">
     <div class="flex flex-col items-end pt-12">
-      <div class="max-w-xl w-full">
+      <div class="md:max-w-xl w-full">
         <Search />
       </div>
     </div>
-    <div v-if="!hasSearchQuery" class="my-12">
+    <div v-if="!hasSearchQuery">
       <FeaturedItem
         title="Breaking Bad"
         subtitle="A high school chemistry teacher dying of cancer teams with a former student to secure his family's future by manufacturing and selling crystal meth."
         :rating="9.2"
       />
     </div>
-    <div class="flex flex-col gap-y-12 pb-12">
+    <div class="flex flex-col gap-y-12">
       <Carousel v-for="genre in genres" :key="genre.name" :genre="genre.name" />
     </div>
   </div>
