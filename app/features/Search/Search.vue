@@ -26,7 +26,7 @@ watch(query, updateURL);
       <input
         type="text"
         v-model="query"
-        placeholder="Search for a show"
+        placeholder="Search for a show..."
         class="w-full p-2 pr-10 rounded-md border border-gray-300"
         maxlength="100"
         aria-label="Search for TV shows"
