@@ -16,6 +16,7 @@ This project consists of a NuxtJS project that exposes API endpoints to serve as
   - [Design](#design)
   - [Testing](#testing)
   - [Lighthouse Scores](#lighthouse-scores)
+  - [Headings Map](#headings-map)
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
     - [Restoring dependencies](#restoring-dependencies)
@@ -164,6 +165,10 @@ npm run test:run  # Single run
 - **SEO**: Meta tags, semantic structure, responsive design
 
 [View Latest Desktop Report](https://pagespeed.web.dev/analysis?url=https://abn-fe-assignment.vercel.app&form_factor=desktop)
+
+## Headings Map
+
+The application uses a **semantic headings structure**. Below is a visual map of the heading levels as implemented in the UI (see also: `docs/headings-map.png`):
 
 ## Prerequisites
 

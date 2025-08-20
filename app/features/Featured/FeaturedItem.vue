@@ -27,7 +27,9 @@ const props = defineProps<{
         <img src="/icons/white-star.svg" alt="star" class="w-4 h-4 pb-0.5" />
         <span class="text-lg font-medium">{{ props.rating }}</span>
       </div>
-      <h1 class="text-3xl md:text-5xl font-bold mb-4 line-clamp-3">
+      <h1
+        class="text-3xl md:text-5xl font-bold mb-4 leading-tight min-h-[2.25rem] md:min-h-[3.75rem]"
+      >
         {{ props.title }}
       </h1>
       <p class="text-sm text-gray-200 mb-6 line-clamp-3">
