@@ -21,9 +21,9 @@ export default defineNuxtConfig({
   },
   modules: ["@nuxt/image"],
   image: {
-    provider: "ipx",
-    formats: ["webp", "avif"],
+    provider: "vercel",
     domains: ["api.tvmaze.com"],
+    format: ["webp", "avif"],
     quality: 95,
   },
 });
