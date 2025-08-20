@@ -30,6 +30,12 @@ This project is built with **Nuxt 4** (Vue 3.5.18), leveraging its hybrid render
 - **Client-side Hydration**: Client behavior
 - **API Routes**: Built-in server endpoints using Nuxt's `server/api/` directory structure
 
+Nuxt was chosen over a standard Vue SPA primarily because of its built-in support for Server-Side Rendering (SSR).
+
+This allows API connections to be handled securely and efficiently on the server, rather than exposing them directly to the client. While the TV Maze API used in this project did not require secrets, the same approach ensures a scalable architecture.
+
+Apart from that Nuxts SSR layer also provides performance and SEO advantages, making it a more future-proof choice for production-grade applications. But again, not relevant here (SEO).
+
 ### Tech Stack
 
 **Frontend:**
