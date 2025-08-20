@@ -20,6 +20,7 @@ const positionClass = computed(() =>
         'absolute top-0 bottom-0 px-6 cursor-pointer w-24 z-10',
         'opacity-0 hover:opacity-100 transition-opacity duration-300',
         'flex items-center justify-center',
+        'hidden lg:flex',
         positionClass,
       ]"
     >

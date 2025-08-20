@@ -3,6 +3,7 @@ import debounce from "lodash.debounce";
 
 import CarouselArrow from "./CarouselArrow.vue";
 import CarouselItem from "./CarouselItem.vue";
+import CarouselHeader from "./CarouselHeader.vue";
 import { useInfiniteCarousel } from "~/composables/useInfiniteCarousel";
 import { useCarouselRegistry } from "~/composables/useCarouselRegistry";
 import type { Show } from "~~/server/types/api.typings";
@@ -113,17 +114,16 @@ watch(
 
 <template>
   <div v-if="shouldShowCarousel" class="relative">
-    <h2 class="text-2xl font-bold mb-4">
-      <template v-if="isLoading">
-        <div class="h-8 bg-gray-700 rounded w-48 animate-pulse"></div>
-      </template>
-      <template v-else>
-        {{ genre }}
-      </template>
-    </h2>
+    <CarouselHeader
+      :isLoading="isLoading"
+      :genre="genre"
+      :onScrollLeft="() => scroll('left')"
+      :onScrollRight="() => scroll('right')"
+      :canScrollLeft="canScrollLeft"
+      :canScrollRight="canScrollRight"
+    />
 
     <div v-if="error" class="text-red-500 mb-4">{{ error }}</div>
-
     <div class="relative">
       <div
         ref="scrollContainer"
