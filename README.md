@@ -15,6 +15,7 @@ This project consists of a NuxtJS project that exposes API endpoints to serve as
     - [File Structure](#file-structure)
   - [Design](#design)
   - [Testing](#testing)
+  - [Lighthouse Scores](#lighthouse-scores)
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
     - [Restoring dependencies](#restoring-dependencies)
@@ -149,6 +150,22 @@ Run tests:
 npm test          # Watch mode
 npm run test:run  # Single run
 ```
+
+## Lighthouse Scores
+
+![Performance: 96%](https://img.shields.io/badge/Performance-98%25-success)
+![Accessibility: 100%](https://img.shields.io/badge/Accessibility-100%25-success)
+![Best Practices: 100%](https://img.shields.io/badge/Best_Practices-100%25-success)
+![SEO: 100%](https://img.shields.io/badge/SEO-100%25-success)
+
+Key optimizations that contribute to these scores:
+
+- **Performance**: SSR, image optimization, efficient bundling
+- **Accessibility**: ARIA labels, semantic HTML, proper color contrast
+- **Best Practices**: Modern image formats, secure dependencies
+- **SEO**: Meta tags, semantic structure, responsive design
+
+[View Latest Desktop Report](https://pagespeed.web.dev/analysis?url=https://abn-fe-assignment.vercel.app&form_factor=desktop)
 
 ## Prerequisites
 
