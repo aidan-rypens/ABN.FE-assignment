@@ -24,6 +24,7 @@ watch(query, updateURL);
   <div class="flex items-center gap-x-2 w-full">
     <div class="relative w-full">
       <input
+        data-testid="search-input"
         type="text"
         v-model="query"
         placeholder="Search for a show..."
@@ -40,6 +41,7 @@ watch(query, updateURL);
       <button
         v-if="query"
         @click="clearSearch"
+        data-testid="clear-search-button"
         class="absolute right-2 top-1/2 transform -translate-y-1/2 focus:outline-none cursor-pointer"
         aria-label="Clear search"
       >

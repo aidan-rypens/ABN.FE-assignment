@@ -4,6 +4,8 @@ This project consists of a NuxtJS project that exposes API endpoints to serve as
 
 - [Introduction](#introduction)
   - [Architecture](#architecture)
+  - [Design](#design)
+  - [Testing](#testing)
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
     - [Restoring dependencies](#restoring-dependencies)
@@ -12,6 +14,24 @@ This project consists of a NuxtJS project that exposes API endpoints to serve as
 ## Architecture
 
 // TODO
+
+## Design
+
+UI designs and specifications are available in Figma and locally in the repo.
+**[ABN Amro FE Assessment - Figma Design](https://www.figma.com/design/9dXS5EyhEiaUBQzBcDuzcc/ABN-Amro-FE-Assessment?node-id=0-1&t=bwAuYkjpKPIY1mj6-1)**
+
+The design is just a fast mockup without the correct configuration of colors / typography, without layout breakpoints, component specifications / ...
+
+## Testing
+
+Unit tests are built with Vitest and Vue Test Utils. See [Testing Guide](./docs/testing.md) for setup details and patterns.
+
+Run tests:
+
+```bash
+npm test          # Watch mode
+npm run test:run  # Single run
+```
 
 ## Prerequisites
 

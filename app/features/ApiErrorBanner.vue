@@ -6,6 +6,7 @@ const { hasErrors } = useCarouselRegistry();
 
 <template>
   <div
+    data-testid="api-error-banner"
     class="fixed top-0 left-0 bg-red-500 w-full py-6 mx-auto flex items-center justify-center z-50"
     v-if="hasErrors"
   >
