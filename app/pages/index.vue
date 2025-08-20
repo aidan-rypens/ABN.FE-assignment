@@ -25,8 +25,21 @@ const pageTitle = computed(() => {
   return "TV Shows Dashboard";
 });
 
+const pageDescription = computed(() => {
+  if (hasSearchQuery.value) {
+    return `Search results for "${searchQuery.value}" - Browse TV shows by genre`;
+  }
+  return "Browse TV shows by genre. Find information about ratings, episodes, and more.";
+});
+
 useHead({
   title: pageTitle,
+  meta: [
+    {
+      name: "description",
+      content: pageDescription,
+    },
+  ],
 });
 
 const shouldShowNoResults = computed(() => {
