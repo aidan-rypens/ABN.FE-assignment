@@ -5,6 +5,10 @@ import FeaturedItem from "~/features/Featured/FeaturedItem.vue";
 import Search from "~/features/Search/Search.vue";
 import { useCarouselRegistry } from "~/composables/useCarouselRegistry";
 
+useHead({
+  title: "TV Shows Dashboard",
+});
+
 const { data: genres } = await useFetch<TVGenreData[]>("/api/shows/genres");
 const { hasNoResults, hasErrors } = useCarouselRegistry();
 
@@ -13,6 +17,17 @@ const searchQuery = computed(() => (route.query.q as string) || "");
 const hasSearchQuery = computed(
   () => searchQuery.value && searchQuery.value.trim().length >= 2
 );
+
+const pageTitle = computed(() => {
+  if (hasSearchQuery.value) {
+    return `Search: ${searchQuery.value} - TV Shows Dashboard`;
+  }
+  return "TV Shows Dashboard";
+});
+
+useHead({
+  title: pageTitle,
+});
 
 const shouldShowNoResults = computed(() => {
   return hasSearchQuery.value && hasNoResults.value;

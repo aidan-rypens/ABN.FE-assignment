@@ -13,6 +13,8 @@ const props = defineProps<{
       :src="props.imageSrc || '/images/featured.jpg'"
       :alt="props.title"
       class="w-full h-full object-cover"
+      width="1920"
+      height="384"
     />
     <div
       class="absolute inset-0 bg-gradient-to-t from-black via-black/70 via-30% to-transparent"
