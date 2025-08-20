@@ -87,8 +87,13 @@ onMounted(() => {
     hasShows: shows.value.length > 0,
     error: error.value,
   });
-  scrollContainer.value?.addEventListener("scroll", handleScroll);
-  nextTick(updateScrollArrows);
+
+  nextTick(() => {
+    if (scrollContainer.value) {
+      scrollContainer.value.addEventListener("scroll", handleScroll);
+      updateScrollArrows();
+    }
+  });
 });
 
 onUnmounted(() => {
