@@ -13,6 +13,7 @@ const props = defineProps<{
       :src="props.imageSrc || '/images/featured.jpg'"
       :alt="props.title"
       class="w-full h-full object-cover"
+      fetchpriority="high"
       width="1920"
       height="384"
     />
