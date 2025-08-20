@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <div class="relative w-full h-96 overflow-hidden rounded-2xl">
-    <img
+    <NuxtImg
       :src="props.imageSrc || '/images/featured.jpg'"
       :alt="props.title"
       class="w-full h-full object-cover"

@@ -51,10 +51,12 @@ const letters = [
         rel="noopener noreferrer"
         class="group hover:opacity-100 transition-opacity duration-200 flex flex-col items-center gap-y-2"
       >
-        <img
+        <NuxtImg
           src="/images/aidan.jpg"
           alt="Aidan Rypens Profile"
           class="w-14 h-14 rounded-full object-cover mx-auto"
+          width="56"
+          height="56"
         />
         <span
           class="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 wave-container"

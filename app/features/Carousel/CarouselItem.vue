@@ -25,7 +25,7 @@ const props = defineProps<{
     <template v-else>
       <div class="relative w-full h-full">
         <div class="w-full h-full relative">
-          <img
+          <NuxtImg
             v-if="props.imageSrc"
             :src="props.imageSrc"
             :alt="props.name"

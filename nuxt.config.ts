@@ -20,4 +20,11 @@ export default defineNuxtConfig({
         "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
     },
   },
+  modules: ["@nuxt/image"],
+  image: {
+    provider: "ipx",
+    formats: ["webp", "avif"],
+    domains: ["api.tvmaze.com"],
+    quality: 95,
+  },
 });
