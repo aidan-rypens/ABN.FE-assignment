@@ -158,11 +158,9 @@ npm run test:run  # Single run
 ![Best Practices: 100%](https://img.shields.io/badge/Best_Practices-100%25-success)
 ![SEO: 100%](https://img.shields.io/badge/SEO-100%25-success)
 
-Key optimizations that contribute to these scores:
-
-- **Performance**: SSR, image optimization, efficient bundling
+- **Performance**: SSR, image optimization (vercel), efficient bundling
 - **Accessibility**: ARIA labels, semantic HTML, proper color contrast
-- **Best Practices**: Modern image formats, secure dependencies
+- **Best Practices**: Modern image formats
 - **SEO**: Meta tags, semantic structure, responsive design
 
 [View Latest Desktop Report](https://pagespeed.web.dev/analysis?url=https://abn-fe-assignment.vercel.app&form_factor=desktop)
