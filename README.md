@@ -153,7 +153,7 @@ npm run test:run  # Single run
 
 ## Lighthouse Scores
 
-![Performance: 96%](https://img.shields.io/badge/Performance-98%25-success)
+![Performance: 96%](https://img.shields.io/badge/Performance-96%25-success)
 ![Accessibility: 100%](https://img.shields.io/badge/Accessibility-100%25-success)
 ![Best Practices: 100%](https://img.shields.io/badge/Best_Practices-100%25-success)
 ![SEO: 100%](https://img.shields.io/badge/SEO-100%25-success)
