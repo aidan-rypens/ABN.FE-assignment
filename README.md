@@ -169,7 +169,7 @@ npm run test:run  # Single run
 
 Before you begin, ensure you have the following installed:
 
-1. **[Node.js](https://nodejs.org/en/download)** - Version 20 or higher
+1. **[Node.js](https://nodejs.org/en/download)** - Version 22 or higher
 2. **[npm](https://www.npmjs.com/)** - For managing frontend dependencies
 3. **[Git](https://git-scm.com/downloads)** - For version control
 
